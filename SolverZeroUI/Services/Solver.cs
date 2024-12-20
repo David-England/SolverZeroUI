@@ -1,4 +1,6 @@
-﻿namespace SolverZeroUI.Services
+﻿using System.Net.Http.Headers;
+
+namespace SolverZeroUI.Services
 {
     public class Solver : ISolver
     {
@@ -14,9 +16,10 @@
             // Ignore input for now.
 
             string json = File.ReadAllText("./Samples/basic.json");
+            var content = new StringContent(json, MediaTypeHeaderValue.Parse("application/json"));
 
-            HttpRequestMessage message = new(HttpMethod.Get, "http://localhost:8081/sudoku")
-                { Content = new StringContent(json) };
+			HttpRequestMessage message = new(HttpMethod.Get, "http://localhost:8081/sudoku")
+                { Content = content };
 
             HttpResponseMessage response = await _httpClient.SendAsync(message);
 
