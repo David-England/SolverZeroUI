@@ -1,4 +1,5 @@
 ﻿using System.Net.Http.Headers;
+using System.Text.Json;
 
 namespace SolverZeroUI.Services
 {
@@ -23,9 +24,37 @@ namespace SolverZeroUI.Services
 
             HttpResponseMessage response = await _httpClient.SendAsync(message);
 
-            Console.WriteLine(await response.Content.ReadAsStringAsync());
+            return ParseJsonifiedSudokus(await response.Content.ReadAsStringAsync())!;
+		}
 
-            return new List<int[,]> { new int[0,0] };
+        private List<int[,]>? ParseJsonifiedSudokus(string json)
+        {
+            List<int[][]>? jagged = JsonSerializer.Deserialize<List<int[][]>>(json);
+
+            if (jagged == null)
+                return null;
+            else
+                return jagged!.Select(a => MapJaggedTo2D(a)).ToList();
+        }
+
+        private T[,] MapJaggedTo2D<T>(T[][] array)
+        {
+            int countRows = array.Length;
+            int countCols = array.Select(r => r.Length).Max();
+            T[,] returnArr = new T[countRows, countCols];
+
+            for (int row = 0; row < countRows; row++)
+            {
+                int rowLength = array[row].Length;
+
+                for (int col = 0; col < countCols; col++)
+                {
+                    if (col < rowLength)
+                        returnArr[row, col] = array[row][col];
+                }
+            }
+
+            return returnArr;
         }
     }
 }
