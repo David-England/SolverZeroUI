@@ -1,3 +1,9 @@
 ﻿@page "/"
 
-<p>Let's solve some sudokus.</p>
+@inject ISolver Solver
+
+<button @onclick=Solve>Solve</button>
+
+@code {
+	private async void Solve() => await Solver.Solve(new int[0, 0]);
+}
