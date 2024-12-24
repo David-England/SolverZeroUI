@@ -24,17 +24,17 @@ namespace SolverZeroUI.Services
 
             HttpResponseMessage response = await _httpClient.SendAsync(message);
 
-            return ParseJsonifiedSudokus(await response.Content.ReadAsStringAsync())!;
+            return ParseJsonifiedSudokus(await response.Content.ReadAsStringAsync());
 		}
 
-        private List<int[,]>? ParseJsonifiedSudokus(string json)
+        private List<int[,]> ParseJsonifiedSudokus(string json)
         {
             List<int[][]>? jagged = JsonSerializer.Deserialize<List<int[][]>>(json);
 
             if (jagged == null)
-                return null;
+                throw new InvalidOperationException("Failed to deserialize the provided sudoku.");
             else
-                return jagged!.Select(a => MapJaggedTo2D(a)).ToList();
+                return jagged.Select(a => MapJaggedTo2D(a)).ToList();
         }
 
         private T[,] MapJaggedTo2D<T>(T[][] array)
