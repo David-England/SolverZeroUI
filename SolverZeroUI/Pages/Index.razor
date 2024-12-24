@@ -9,6 +9,14 @@
 	<div>LOADING....</div>
 }
 
+@if (Solutions.Count > 0)
+{
+	<p>
+		Please find your solution below. If the final grid has gaps remaining, we have not been
+		able to completely solve your problem.
+	</p>
+}
+
 @foreach (int[,] grid in Solutions)
 {
 	<Sudoku Grid="grid" />

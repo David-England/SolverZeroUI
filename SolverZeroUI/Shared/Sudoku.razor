@@ -1,11 +1,11 @@
-﻿<div>
+﻿<div style="display: inline-block">
 	<table class="sudoku">
 		@for (int row = 0; row < 9; row++)
 		{
 			<tr>
 				@for (int col = 0; col < 9; col++)
 				{
-					<td>@Grid![row, col]</td>
+					<td>@GetCellDisplay(row, col)</td>
 				}
 			</tr>
 		}
@@ -15,4 +15,14 @@
 @code {
 	[Parameter]
 	public int[,]? Grid { get; set; }
+
+	private string GetCellDisplay(int row, int col)
+	{
+		int entry = Grid![row, col];
+
+		if (entry == 0)
+			return "";
+		else
+			return entry.ToString();
+	}
 }
