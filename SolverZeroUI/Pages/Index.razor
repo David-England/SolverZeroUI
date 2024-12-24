@@ -4,19 +4,28 @@
 
 <button @onclick=Solve>Solve</button>
 
+@if (_isLoading)
+{
+	<div>LOADING....</div>
+}
+
 @foreach (int[,] grid in Solutions)
 {
 	<Sudoku Grid="grid" />
 }
 
 @code {
+	private bool _isLoading = false;
 	private List<int[,]>? _solutions;
 
 	private List<int[,]> Solutions => _solutions ?? new List<int[,]>();
 
 	private async void Solve()
 	{
+		_isLoading = true;
 		_solutions = await Solver.Solve(new int[0, 0]);
+
+		_isLoading = false;
 		StateHasChanged();
 	}
 }
