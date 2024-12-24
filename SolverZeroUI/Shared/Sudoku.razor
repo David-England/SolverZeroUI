@@ -1,0 +1,18 @@
+﻿<div>
+	<table>
+		@for (int row = 0; row < 9; row++)
+		{
+			<tr>
+				@for (int col = 0; col < 9; col++)
+				{
+					@Grid![row, col]
+				}
+			</tr>
+		}
+	</table>
+</div>
+
+@code {
+	[Parameter]
+	public int[,]? Grid { get; set; }
+}

@@ -4,6 +4,19 @@
 
 <button @onclick=Solve>Solve</button>
 
+@foreach (int[,] grid in Solutions)
+{
+	<Sudoku Grid="grid" />
+}
+
 @code {
-	private async void Solve() => await Solver.Solve(new int[0, 0]);
+	private List<int[,]>? _solutions;
+
+	private List<int[,]> Solutions => _solutions ?? new List<int[,]>();
+
+	private async void Solve()
+	{
+		_solutions = await Solver.Solve(new int[0, 0]);
+		StateHasChanged();
+	}
 }
