@@ -1,11 +1,11 @@
 ﻿<div>
-	<table>
+	<table class="sudoku">
 		@for (int row = 0; row < 9; row++)
 		{
 			<tr>
 				@for (int col = 0; col < 9; col++)
 				{
-					@Grid![row, col]
+					<td>@Grid![row, col]</td>
 				}
 			</tr>
 		}
