@@ -1,4 +1,4 @@
-﻿<input Value="@CellValue" @onchange="args => CellValue = Convert.ToInt32(args.Value)" />
+﻿<InputNumber @bind-Value="CellValue" />
 
 @code {
 	[Parameter]
