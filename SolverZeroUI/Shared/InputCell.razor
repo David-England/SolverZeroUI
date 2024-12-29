@@ -1,0 +1,25 @@
+﻿<input Value="@CellValue" @onchange="args => CellValue = Convert.ToInt32(args.Value)" />
+
+@code {
+	[Parameter]
+	public int Row { get; set; }
+
+	[Parameter]
+	public int Column { get; set; }
+
+	[Parameter]
+	public int[,]? Grid { get; set; }
+
+	[Parameter]
+	public EventCallback UpdateParent { get; set; }
+
+	private int CellValue
+	{
+		get => Grid![Row, Column];
+		set
+		{
+			Grid![Row, Column] = value;
+			UpdateParent.InvokeAsync();
+		}
+	}
+}

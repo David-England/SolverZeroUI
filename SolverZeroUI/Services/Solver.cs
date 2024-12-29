@@ -14,9 +14,7 @@ namespace SolverZeroUI.Services
 
         public async Task<List<int[,]>> Solve(int[,] input)
         {
-            // Ignore input for now.
-
-            string json = File.ReadAllText("./Samples/basic.json");
+            string json = JsonSerializer.Serialize(Map2DToJagged(input));
             var content = new StringContent(json, MediaTypeHeaderValue.Parse("application/json"));
 
 			HttpRequestMessage message = new(HttpMethod.Get, "http://localhost:8081/sudoku")
@@ -35,6 +33,23 @@ namespace SolverZeroUI.Services
                 throw new InvalidOperationException("Failed to deserialize the provided sudoku.");
             else
                 return jagged.Select(a => MapJaggedTo2D(a)).ToList();
+        }
+
+        private T[][] Map2DToJagged<T>(T[,] array)
+        {
+            int countRows = array.GetLength(0);
+            int countCols = array.GetLength(1);
+            T[][] returnArr = new T[countRows][];
+
+            for (int row = 0; row < countRows; row++)
+            {
+                returnArr[row] = new T[countCols];
+
+                for (int col = 0; col < countCols; col++)
+                    returnArr[row][col] = array[row, col];
+            }
+
+            return returnArr;
         }
 
         private T[,] MapJaggedTo2D<T>(T[][] array)
