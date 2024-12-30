@@ -1,4 +1,4 @@
-﻿<InputNumber @bind-Value="CellValue" />
+﻿<InputNumber @bind-Value="DisplayValue" />
 
 @code {
 	[Parameter]
@@ -13,13 +13,37 @@
 	[Parameter]
 	public EventCallback UpdateParent { get; set; }
 
-	private int CellValue
+	private int? DisplayValue
 	{
-		get => Grid![Row, Column];
+		get
+		{
+			int currentValue = Grid![Row, Column];
+
+			if (currentValue < 1 || currentValue > 9)
+				return null;
+			else
+				return currentValue;
+		}
 		set
 		{
-			Grid![Row, Column] = value;
-			UpdateParent.InvokeAsync();
+			int previousValue = Grid![Row, Column];
+
+			if (value.HasValue && value.Value >= 1 && value.Value <= 9)
+			{
+				if (previousValue != value.Value)
+				{
+					Grid![Row, Column] = value.Value;
+					UpdateParent.InvokeAsync();
+				}
+			}
+			else
+			{
+				if (previousValue != 0)
+				{
+					Grid![Row, Column] = 0;
+					UpdateParent.InvokeAsync();
+				}
+			}
 		}
 	}
 }
