@@ -2,9 +2,11 @@
 
 @inject ISolver Solver
 
-<SudokuInput Grid="_input" />
-
-<button @onclick=Solve>Solve</button>
+<div>
+	<SudokuInput Grid="_input" DoOnUpdate="() => StateHasChanged()" />
+	<Sudoku Grid="_input" />
+	<button @onclick=Solve>Solve</button>
+</div>
 
 @if (_isLoading)
 {

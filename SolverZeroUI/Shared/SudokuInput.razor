@@ -9,7 +9,7 @@
 						<InputCell Row="row"
 							Column="col"
 							Grid="Grid"
-							UpdateParent="() => StateHasChanged()" />
+							DoOnUpdate=DoOnUpdate />
 					</td>
 				}
 			</tr>
@@ -17,10 +17,10 @@
 	</table>
 </div>
 
-<p>Your input:</p>
-<Sudoku Grid="Grid" />
-
 @code {
 	[Parameter]
 	public int[,]? Grid { get; set; }
+
+	[Parameter]
+	public EventCallback DoOnUpdate { get; set; }
 }

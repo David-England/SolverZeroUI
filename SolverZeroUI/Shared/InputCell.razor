@@ -11,7 +11,7 @@
 	public int[,]? Grid { get; set; }
 
 	[Parameter]
-	public EventCallback UpdateParent { get; set; }
+	public EventCallback DoOnUpdate { get; set; }
 
 	private int? DisplayValue
 	{
@@ -33,7 +33,7 @@
 				if (previousValue != value.Value)
 				{
 					Grid![Row, Column] = value.Value;
-					UpdateParent.InvokeAsync();
+					DoOnUpdate.InvokeAsync();
 				}
 			}
 			else
@@ -41,7 +41,7 @@
 				if (previousValue != 0)
 				{
 					Grid![Row, Column] = 0;
-					UpdateParent.InvokeAsync();
+					DoOnUpdate.InvokeAsync();
 				}
 			}
 		}
