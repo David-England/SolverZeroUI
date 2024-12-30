@@ -1,6 +1,12 @@
+body {
+    padding: 8px;
+}
+
 h1 {
     font-family: 'Lucida Console';
+    font-size: 24pt;
     font-style: italic;
+    font-weight: bold;
 }
 
 div.sudoku {
@@ -20,6 +26,7 @@ div.sudoku {
 
         div.sudoku table tr td {
             height: 1em;
+            padding: 1px;
             text-align: center;
             width: 1.2em;
         }
