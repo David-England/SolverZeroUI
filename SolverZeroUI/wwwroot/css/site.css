@@ -11,6 +11,7 @@ h1 {
 
 div.sudoku {
     display: inline-block;
+    vertical-align: bottom;
 }
 
     div.sudoku table {
@@ -37,6 +38,18 @@ div.sudoku {
 
 input.input-cell {
     width: 2em;
+}
+
+button {
+    background-color: white;
+    border: 4px solid black;
+    font-family: 'Lucida Console';
+    margin: 8px;
+    padding: 8px;
+}
+
+button:active {
+    background-color: cyan;
 }
 
 ::selection {
